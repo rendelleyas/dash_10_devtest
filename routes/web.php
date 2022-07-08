@@ -13,6 +13,7 @@ use App\Http\Controllers\PlayerController;
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::get('/test/{id}', [PlayerController::class, 'test']);
 
 Route::get('/allblacks', [PlayerController::class, 'show']);
 Route::get('/allblacks/{id}', [PlayerController::class, 'show']);

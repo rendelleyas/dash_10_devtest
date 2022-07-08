@@ -7,6 +7,17 @@ use Illuminate\Support\Facades\Http;
 
 class PlayerController extends Controller
 {
+
+    public $allBlacks;
+    public function __construct()
+    {
+        $this->allBlacks =  $this->fetchAllBlack();
+    }
+
+    public function test($id = null){
+        $id = $id ?? 1;
+        return $this->firstAndLastPage($id);
+    }
     /**
      * Show a player profile
      *
@@ -19,6 +30,10 @@ class PlayerController extends Controller
 
         $player = $this->player($id);
 
+        if($player == null || count($player) < 1){
+            return "empty player: return to 1";
+        }
+
         // split first & last name
         $names = collect(preg_split('/\s+/', $player->get('name')));
         $player->put('last_name', $names->pop());
@@ -29,6 +44,9 @@ class PlayerController extends Controller
 
         // stats to feature
         $player->put('featured', $this->feature($player));
+        $player->put('pagination', $this->firstAndLastPage($id));
+        
+        // return $player;
 
         return view('player', $player);
     }
@@ -56,7 +74,8 @@ class PlayerController extends Controller
         //     "id" => "1",
         // ]);
 
-        $baseEndpoint = 'https://www.zeald.com/developer-tests-api/x_endpoint/allblacks';
+        // $baseEndpoint = 'https://www.zeald.com/developer-tests-api/x_endpoint/allblacks';
+        $baseEndpoint = config('api.endpoint');
 
         $json = Http::get("$baseEndpoint/id/$id", [
             'API_KEY' => config('api.key'),
@@ -89,5 +108,66 @@ class PlayerController extends Controller
             ['label' => 'Games', 'value' => $player->get('games')],
             ['label' => 'Tries', 'value' => $player->get('tries')],
         ]);
+    }
+
+    public function fetchAllBlack(){
+        $baseEndpoint = config('api.endpoint');
+        return Http::get("$baseEndpoint?API_KEY=" . config('api.key'), [
+            'API_KEY' => config('api.key'),
+        ])->json();
+    }
+
+
+    public function firstAndLastPage($currentKey){
+        $currentKey = (int) $currentKey;
+
+        $json = $this->allBlacks;
+
+        $startKey = $json[0]['id'];
+        $lastKey = $json[count($json) - 1]['id'];
+
+        // process next button
+        if($lastKey == $currentKey){
+            $nextLink =  $json[0]['id']; //start at first 
+            $nexButton =  [
+                'link' => 'allblacks/'.  $nextLink,
+                'name' => $json[$nextLink - 1]['name']
+            ];
+        }else{
+            $nextLink =  $currentKey + 1;
+            $nexButton =  [
+                'link' => 'allblacks/'.  $nextLink,
+                'name' => $json[$nextLink - 1]['name']
+            ];
+        }   
+
+        //process prev button
+        if($startKey == $currentKey){
+            $prevLink =  $json[$lastKey - 1]['id']; //prev is at end item
+            $prevButton =  [
+                'link' =>  'allblacks/'.  $prevLink,
+                'name' => $json[$prevLink - 1]['name'],
+            ];
+        }else{
+            $prevLink =  $currentKey - 1;
+            $prevButton =  [
+                'link' => 'allblacks/'. $prevLink,
+                'name' => $json[$prevLink - 1]['name'],
+            ];
+        }  
+
+        // process current button
+        $currentButton = [
+            'link' => 'allblacks/'.  $currentKey,
+            'name' => $json[$currentKey - 1]['name'],
+        ];
+
+        return [
+            'start' => $json[0]['id'],
+            'end' => $json[count($json) - 1]['id'],
+            'current' => $currentButton,
+            'prev' => $prevButton,
+            'next' => $nexButton
+        ];
     }
 }
