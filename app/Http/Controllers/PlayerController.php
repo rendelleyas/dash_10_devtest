@@ -110,6 +110,11 @@ class PlayerController extends Controller
         ]);
     }
 
+     /**
+     * Fetch all of the rugby player data
+     *
+     * @return Array
+     */
     public function fetchAllBlack(){
         $baseEndpoint = config('api.endpoint');
         return Http::get("$baseEndpoint?API_KEY=" . config('api.key'), [
@@ -118,6 +123,11 @@ class PlayerController extends Controller
     }
 
 
+    /**
+     * Process the pagination. next and prev links
+     *
+     * @param $currentKey - active id
+     */
     public function firstAndLastPage($currentKey){
         $currentKey = (int) $currentKey;
 
