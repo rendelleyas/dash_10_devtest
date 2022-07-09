@@ -117,6 +117,33 @@ class PlayerController extends Controller
         ])->json();
     }
 
+    public function allBlackWithFeatures(){
+        if($this->allBlacks){
+            $hold = [];
+            foreach($this->allBlacks as $player){
+
+                $id = $player['id'];
+                $filteredPlayer = $this->player($id);
+
+                // split first & last name
+                $names = collect(preg_split('/\s+/', $filteredPlayer->get('name')));
+                $filteredPlayer->put('last_name', $names->pop());
+                $filteredPlayer->put('first_name', $names->join(' '));
+
+                // determine the image filename from the name
+                $filteredPlayer->put('image', $this->image($filteredPlayer->get('name')));
+
+                // stats to feature
+                $filteredPlayer->put('featured', $this->feature($filteredPlayer));
+                // $filteredPlayer->put('pagination', $this->firstAndLastPage($id));
+
+                array_push($hold, $filteredPlayer);
+            }
+
+            return $hold;
+
+        }
+    }
 
     public function firstAndLastPage($currentKey){
         $currentKey = (int) $currentKey;

@@ -13,6 +13,9 @@
         <link href="/styles.css" rel="stylesheet" />
     </head>
     <body>
-        {{ $slot }}
+        <div id="app">
+            {{ $slot }}
+        </div>
     </body>
 </html>
+<script src="{{ mix('/js/app.js') }}"></script>
