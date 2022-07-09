@@ -30,10 +30,6 @@ class PlayerController extends Controller
 
         $player = $this->player($id);
 
-        if($player == null || count($player) < 1){
-            return "empty player: return to 1";
-        }
-
         // split first & last name
         $names = collect(preg_split('/\s+/', $player->get('name')));
         $player->put('last_name', $names->pop());
