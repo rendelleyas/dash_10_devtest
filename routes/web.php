@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PlayerController;
+use App\Http\Controllers\NbaPlayerController;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,7 +14,13 @@ use App\Http\Controllers\PlayerController;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::get('/test/{id}', [PlayerController::class, 'test']);
+// Route::get('/test/{id}', [PlayerController::class, 'test']);
 
-Route::get('/allblacks', [PlayerController::class, 'show']);
+Route::get('/nba', [PlayerController::class, 'allPlayers']);
+Route::get('/nba/{id}', [PlayerController::class, 'show']);
+
+Route::get('/allblacks', [PlayerController::class, 'allPlayers']);
 Route::get('/allblacks/{id}', [PlayerController::class, 'show']);
+
+// Route::get('/allblacks', [PlayerController::class, 'show']);
+// Route::get('/allblacks/{id}', [PlayerController::class, 'show']);

@@ -1,41 +1,43 @@
 <template>
-    <div>
-        <h1>All Blacks Rugby</h1>
-        <div class="card" :style="{width : '1080px', height : '800px'}">
-            <img src="/images/teams/allblacks.png" alt="All blacks logo" class="logo" />
-            <div class="name">
-                <em>#123</em>
-                <h2>{{activePlayer.first_name}} <strong>{{activePlayer.last_name}}</strong></h2>
-            </div>
-            <div class="profile">
-                <img :src="'/images/players/allblacks/' + activePlayer.image" alt="Rendell Pogi" class="headshot" />
-                <div class="features">
-                    <div class="feature" v-for="(feature, key) of activePlayer.featured" :key="key">
-                        <h3>{{feature.label}}</h3>
-                        {{feature.value}}
+    <div >
+        <h1>{{activePlayer.teamImage == 'allblacks.png'? 'ALLBLACK RUGBY' : 'NBA'}}</h1>
+        <div :style="{display : 'flex'}">
+            <div class="card" :style="{width : '1080px', height : '800px', borderColor: activePlayer.color}">
+                <img :src="'/images/teams/' + activePlayer.teamImage" alt="All blacks logo" class="logo" />
+                <div class="name">
+                    <em>#{{activePlayer.number}}</em>
+                    <h2>{{activePlayer.first_name}} <strong>{{activePlayer.last_name}}</strong></h2>
+                </div>
+                <div class="profile">
+                    <img :src="'/images/players/' + activePlayer.image" alt="Rendell Pogi" class="headshot" />
+                    <div class="features">
+                        <div class="feature" v-for="(feature, key) of activePlayer.featured" :key="key">
+                            <h3>{{feature.label}}</h3>
+                            {{feature.value}}
+                        </div>
                     </div>
                 </div>
+                <div class="bio">
+                    <div class="data">
+                        <strong>Position</strong>
+                        {{activePlayer.position}}
+                    </div>
+                    <div class="data">
+                        <strong>Weight</strong>
+                        {{activePlayer.weight}}
+                    </div>
+                    <div class="data">
+                        <strong>Height</strong>
+                        {{activePlayer.height}}
+                    </div>
+                    <div class="data" v-if="activePlayer.age">
+                        <strong>Age</strong>
+                        {{activePlayer.age}}
+                    </div>
+                </div> 
             </div>
-            <div class="bio">
-                <div class="data">
-                    <strong>Position</strong>
-                    {{activePlayer.position}}
-                </div>
-                <div class="data">
-                    <strong>Weight</strong>
-                    {{activePlayer.weight}}
-                </div>
-                <div class="data">
-                    <strong>Height</strong>
-                    {{activePlayer.height}}
-                </div>
-                <div class="data">
-                    <strong>Age</strong>
-                    {{activePlayer.age}}
-                </div>
-            </div> 
-            <div class="vertical-text sidenav-container">
-                <div class="sidenav-item" style="background: black;color:aliceblue;cursor:pointer" @click="handlePrev(activePlayer.pagination.prev.index)">
+            <div class="vertical-text sidenav-container" :style="{ position: 'sticky', marginTop: '250px', marginLeft: '-10px'}">
+                <div class="sidenav-item" :style="{background: activePlayer.color, color:'aliceblue', cursor: 'pointer'}" @click="handlePrev(activePlayer.pagination.prev.index)">
                     <a id="button-link">
                         {{activePlayer.pagination.prev.name}}
                     </a>
@@ -43,19 +45,19 @@
                 <div class="sidenav-item">
                         {{activePlayer.name}}
                 </div>
-                <div class="sidenav-item" style="background: black;color:aliceblue;cursor:pointer" @click="handlePrev(activePlayer.pagination.next.index)">
-                     <a id="button-link">
+                <div class="sidenav-item" :style="{background: activePlayer.color, color:'aliceblue', cursor: 'pointer'}" @click="handlePrev(activePlayer.pagination.next.index)">
+                        <a id="button-link">
                         {{activePlayer.pagination.next.name}}
                     </a>
                 </div>
             </div>
         </div>
-        <!-- {{players}} -->
     </div>
 </template>
 
 <script>
     export default {
+        props: ['data', 'active'],
         data(){
             return {
                 activePlayer : {
@@ -69,15 +71,21 @@
             }
         },
         async mounted() {
-            this.axios.get('http://localhost:8000/api/allblacks').then((response) => {
-                this.players = response.data
-                this.activePlayer = this.players[0];
-                this.assemblePagination();
+            console.log({
+                data: this.data,
+                active: this.active,
             })
+                this.players = this.data
+                if(this.active !== 'empty'){
+                    this.activePlayer = this.active;
+                }else{
+                    this.activePlayer = this.players[0];
+                }
+
+                this.assemblePagination();
         },
         methods: {
             assemblePagination(){
-                // other_experience :  this.levelOfExperience.find( datum => { return  datum.id == values.level_of_experience}).name == "Other" ? this.otherExperienceValue : null,
                 var pagination = [];
               
                 var startIndex = 0;
@@ -119,8 +127,6 @@
                         name : this.players[prevIndex].name
                     }
                 }
-
-
 
                 pagination = {
                     next : nexButton,

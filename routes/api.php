@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PlayerController;
+use App\Http\Controllers\NbaPlayerController;
 
 
 /*
@@ -20,18 +21,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('/test', function(){
-    return 'test here';
-});
 
-Route::get('/allblacks', [PlayerController::class, 'allBlackWithFeatures']);
+Route::get('/nbatest/{id}', [PlayerController::class, 'show']);
+Route::get('/allblacktest/{id}', [PlayerController::class, 'show']);
 
-
-
-
-
-// Route::group(['middleware' => 'cors'], function () {
-//     Route::get('/test', function(){
-//         return 'test here';
-//     });
-// });

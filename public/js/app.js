@@ -5357,10 +5357,10 @@ module.exports = {
 
 /***/ }),
 
-/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/RugbyPlayer.vue?vue&type=script&lang=js&":
-/*!******************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/RugbyPlayer.vue?vue&type=script&lang=js& ***!
-  \******************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Player.vue?vue&type=script&lang=js&":
+/*!*************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Player.vue?vue&type=script&lang=js& ***!
+  \*************************************************************************************************************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -5377,6 +5377,7 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  props: ['data', 'active'],
   data: function data() {
     return {
       activePlayer: {
@@ -5401,14 +5402,21 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         while (1) {
           switch (_context.prev = _context.next) {
             case 0:
-              _this.axios.get('http://localhost:8000/api/allblacks').then(function (response) {
-                _this.players = response.data;
-                _this.activePlayer = _this.players[0];
-
-                _this.assemblePagination();
+              console.log({
+                data: _this.data,
+                active: _this.active
               });
+              _this.players = _this.data;
 
-            case 1:
+              if (_this.active !== 'empty') {
+                _this.activePlayer = _this.active;
+              } else {
+                _this.activePlayer = _this.players[0];
+              }
+
+              _this.assemblePagination();
+
+            case 4:
             case "end":
               return _context.stop();
           }
@@ -5420,7 +5428,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     assemblePagination: function assemblePagination() {
       var _this2 = this;
 
-      // other_experience :  this.levelOfExperience.find( datum => { return  datum.id == values.level_of_experience}).name == "Other" ? this.otherExperienceValue : null,
       var pagination = [];
       var startIndex = 0;
       var lastIndex = this.players.length - 1; //get active index
@@ -5483,10 +5490,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 /***/ }),
 
-/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/RugbyPlayer.vue?vue&type=template&id=653cf981&":
-/*!*****************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/RugbyPlayer.vue?vue&type=template&id=653cf981& ***!
-  \*****************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Player.vue?vue&type=template&id=11281ee8&":
+/*!************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Player.vue?vue&type=template&id=11281ee8& ***!
+  \************************************************************************************************************************************************************************************************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -5499,26 +5506,31 @@ var render = function render() {
   var _vm = this,
       _c = _vm._self._c;
 
-  return _c("div", [_c("h1", [_vm._v("All Blacks Rugby")]), _vm._v(" "), _c("div", {
+  return _c("div", [_c("h1", [_vm._v(_vm._s(_vm.activePlayer.teamImage == "allblacks.png" ? "ALLBLACK RUGBY" : "NBA"))]), _vm._v(" "), _c("div", {
+    style: {
+      display: "flex"
+    }
+  }, [_c("div", {
     staticClass: "card",
     style: {
       width: "1080px",
-      height: "800px"
+      height: "800px",
+      borderColor: _vm.activePlayer.color
     }
   }, [_c("img", {
     staticClass: "logo",
     attrs: {
-      src: "/images/teams/allblacks.png",
+      src: "/images/teams/" + _vm.activePlayer.teamImage,
       alt: "All blacks logo"
     }
   }), _vm._v(" "), _c("div", {
     staticClass: "name"
-  }, [_c("em", [_vm._v("#123")]), _vm._v(" "), _c("h2", [_vm._v(_vm._s(_vm.activePlayer.first_name) + " "), _c("strong", [_vm._v(_vm._s(_vm.activePlayer.last_name))])])]), _vm._v(" "), _c("div", {
+  }, [_c("em", [_vm._v("#" + _vm._s(_vm.activePlayer.number))]), _vm._v(" "), _c("h2", [_vm._v(_vm._s(_vm.activePlayer.first_name) + " "), _c("strong", [_vm._v(_vm._s(_vm.activePlayer.last_name))])])]), _vm._v(" "), _c("div", {
     staticClass: "profile"
   }, [_c("img", {
     staticClass: "headshot",
     attrs: {
-      src: "/images/players/allblacks/" + _vm.activePlayer.image,
+      src: "/images/players/" + _vm.activePlayer.image,
       alt: "Rendell Pogi"
     }
   }), _vm._v(" "), _c("div", {
@@ -5527,23 +5539,28 @@ var render = function render() {
     return _c("div", {
       key: key,
       staticClass: "feature"
-    }, [_c("h3", [_vm._v(_vm._s(feature.label))]), _vm._v("\n                    " + _vm._s(feature.value) + "\n                ")]);
+    }, [_c("h3", [_vm._v(_vm._s(feature.label))]), _vm._v("\n                        " + _vm._s(feature.value) + "\n                    ")]);
   }), 0)]), _vm._v(" "), _c("div", {
     staticClass: "bio"
   }, [_c("div", {
     staticClass: "data"
-  }, [_c("strong", [_vm._v("Position")]), _vm._v("\n                " + _vm._s(_vm.activePlayer.position) + "\n            ")]), _vm._v(" "), _c("div", {
+  }, [_c("strong", [_vm._v("Position")]), _vm._v("\n                    " + _vm._s(_vm.activePlayer.position) + "\n                ")]), _vm._v(" "), _c("div", {
     staticClass: "data"
-  }, [_c("strong", [_vm._v("Weight")]), _vm._v("\n                " + _vm._s(_vm.activePlayer.weight) + "\n            ")]), _vm._v(" "), _c("div", {
+  }, [_c("strong", [_vm._v("Weight")]), _vm._v("\n                    " + _vm._s(_vm.activePlayer.weight) + "\n                ")]), _vm._v(" "), _c("div", {
     staticClass: "data"
-  }, [_c("strong", [_vm._v("Height")]), _vm._v("\n                " + _vm._s(_vm.activePlayer.height) + "\n            ")]), _vm._v(" "), _c("div", {
+  }, [_c("strong", [_vm._v("Height")]), _vm._v("\n                    " + _vm._s(_vm.activePlayer.height) + "\n                ")]), _vm._v(" "), _vm.activePlayer.age ? _c("div", {
     staticClass: "data"
-  }, [_c("strong", [_vm._v("Age")]), _vm._v("\n                " + _vm._s(_vm.activePlayer.age) + "\n            ")])]), _vm._v(" "), _c("div", {
-    staticClass: "vertical-text sidenav-container"
+  }, [_c("strong", [_vm._v("Age")]), _vm._v("\n                    " + _vm._s(_vm.activePlayer.age) + "\n                ")]) : _vm._e()])]), _vm._v(" "), _c("div", {
+    staticClass: "vertical-text sidenav-container",
+    style: {
+      position: "sticky",
+      marginTop: "250px",
+      marginLeft: "-10px"
+    }
   }, [_c("div", {
     staticClass: "sidenav-item",
-    staticStyle: {
-      background: "black",
+    style: {
+      background: _vm.activePlayer.color,
       color: "aliceblue",
       cursor: "pointer"
     },
@@ -5560,8 +5577,8 @@ var render = function render() {
     staticClass: "sidenav-item"
   }, [_vm._v("\n                    " + _vm._s(_vm.activePlayer.name) + "\n            ")]), _vm._v(" "), _c("div", {
     staticClass: "sidenav-item",
-    staticStyle: {
-      background: "black",
+    style: {
+      background: _vm.activePlayer.color,
       color: "aliceblue",
       cursor: "pointer"
     },
@@ -5614,7 +5631,7 @@ window.Vue = (__webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm.js
 // const files = require.context('./', true, /\.vue$/i)
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
-Vue.component('rugby-player', (__webpack_require__(/*! ./components/RugbyPlayer.vue */ "./resources/js/components/RugbyPlayer.vue")["default"]));
+Vue.component('player', (__webpack_require__(/*! ./components/Player.vue */ "./resources/js/components/Player.vue")["default"]));
 Vue.use(vue_axios__WEBPACK_IMPORTED_MODULE_1__["default"], (axios__WEBPACK_IMPORTED_MODULE_0___default()));
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -28126,10 +28143,10 @@ function _typeof(e){return(_typeof="function"==typeof Symbol&&"symbol"==typeof S
 
 /***/ }),
 
-/***/ "./resources/js/components/RugbyPlayer.vue":
-/*!*************************************************!*\
-  !*** ./resources/js/components/RugbyPlayer.vue ***!
-  \*************************************************/
+/***/ "./resources/js/components/Player.vue":
+/*!********************************************!*\
+  !*** ./resources/js/components/Player.vue ***!
+  \********************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -28137,8 +28154,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _RugbyPlayer_vue_vue_type_template_id_653cf981___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./RugbyPlayer.vue?vue&type=template&id=653cf981& */ "./resources/js/components/RugbyPlayer.vue?vue&type=template&id=653cf981&");
-/* harmony import */ var _RugbyPlayer_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./RugbyPlayer.vue?vue&type=script&lang=js& */ "./resources/js/components/RugbyPlayer.vue?vue&type=script&lang=js&");
+/* harmony import */ var _Player_vue_vue_type_template_id_11281ee8___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Player.vue?vue&type=template&id=11281ee8& */ "./resources/js/components/Player.vue?vue&type=template&id=11281ee8&");
+/* harmony import */ var _Player_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Player.vue?vue&type=script&lang=js& */ "./resources/js/components/Player.vue?vue&type=script&lang=js&");
 /* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! !../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
@@ -28148,9 +28165,9 @@ __webpack_require__.r(__webpack_exports__);
 /* normalize component */
 ;
 var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
-  _RugbyPlayer_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _RugbyPlayer_vue_vue_type_template_id_653cf981___WEBPACK_IMPORTED_MODULE_0__.render,
-  _RugbyPlayer_vue_vue_type_template_id_653cf981___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  _Player_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _Player_vue_vue_type_template_id_11281ee8___WEBPACK_IMPORTED_MODULE_0__.render,
+  _Player_vue_vue_type_template_id_11281ee8___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
   false,
   null,
   null,
@@ -28160,15 +28177,15 @@ var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__
 
 /* hot reload */
 if (false) { var api; }
-component.options.__file = "resources/js/components/RugbyPlayer.vue"
+component.options.__file = "resources/js/components/Player.vue"
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
 
 /***/ }),
 
-/***/ "./resources/js/components/RugbyPlayer.vue?vue&type=script&lang=js&":
-/*!**************************************************************************!*\
-  !*** ./resources/js/components/RugbyPlayer.vue?vue&type=script&lang=js& ***!
-  \**************************************************************************/
+/***/ "./resources/js/components/Player.vue?vue&type=script&lang=js&":
+/*!*********************************************************************!*\
+  !*** ./resources/js/components/Player.vue?vue&type=script&lang=js& ***!
+  \*********************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -28176,24 +28193,24 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_RugbyPlayer_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./RugbyPlayer.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/RugbyPlayer.vue?vue&type=script&lang=js&");
- /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_RugbyPlayer_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Player_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./Player.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Player.vue?vue&type=script&lang=js&");
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Player_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 
-/***/ "./resources/js/components/RugbyPlayer.vue?vue&type=template&id=653cf981&":
-/*!********************************************************************************!*\
-  !*** ./resources/js/components/RugbyPlayer.vue?vue&type=template&id=653cf981& ***!
-  \********************************************************************************/
+/***/ "./resources/js/components/Player.vue?vue&type=template&id=11281ee8&":
+/*!***************************************************************************!*\
+  !*** ./resources/js/components/Player.vue?vue&type=template&id=11281ee8& ***!
+  \***************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "render": () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_lib_index_js_vue_loader_options_RugbyPlayer_vue_vue_type_template_id_653cf981___WEBPACK_IMPORTED_MODULE_0__.render),
-/* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_lib_index_js_vue_loader_options_RugbyPlayer_vue_vue_type_template_id_653cf981___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
+/* harmony export */   "render": () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_lib_index_js_vue_loader_options_Player_vue_vue_type_template_id_11281ee8___WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_lib_index_js_vue_loader_options_Player_vue_vue_type_template_id_11281ee8___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
 /* harmony export */ });
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_lib_index_js_vue_loader_options_RugbyPlayer_vue_vue_type_template_id_653cf981___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./RugbyPlayer.vue?vue&type=template&id=653cf981& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/RugbyPlayer.vue?vue&type=template&id=653cf981&");
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_lib_index_js_vue_loader_options_Player_vue_vue_type_template_id_11281ee8___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./Player.vue?vue&type=template&id=11281ee8& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Player.vue?vue&type=template&id=11281ee8&");
 
 
 /***/ }),
