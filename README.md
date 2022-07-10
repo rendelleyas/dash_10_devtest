@@ -16,24 +16,13 @@ npm install
 
 After successfully installing the npm and composer packages, copy the env.example value to the .env.
 
-Note: task_1, task_2, task_3 have different env value (API_KEY and API_END_POINT). Because of my work progress per task, there is changes.
-Each task has it own branch (task_1, task_2, task_3). While the 'main' branch is pointed to the latest task which is task_3.
-
 ```bash
-Task 1 (.env values)
-API_KEY=few823mv__570sdd0342
-API_END_POINT=https://www.zeald.com/developer-tests-api/x_endpoint/allblacks
-
-Task 2 (.env values)
-API_KEY=few823mv__570sdd0342
-API_END_POINT=https://www.zeald.com/developer-tests-api/x_endpoint/allblacks
-
-Task 3 (.env values)
+(env values)
 API_KEY=few823mv__570sdd0342
 API_END_POINT=https://www.zeald.com/developer-tests-api/x_endpoint/
 ```
 
-
+Note: Each task has it own branch (task_1, task_2, task_3). While the 'main' branch is pointed to the latest task which is task_3.
 
 ## How Test Works
 
