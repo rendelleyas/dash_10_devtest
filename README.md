@@ -1,5 +1,29 @@
 # Dash10 PHP Developer Test
 
+## Installation of my Work
+```bash
+git clone https://github.com/rendelleyas/dash_10_devtest.git
+```
+
+After successfully cloning the entire repo enter this commands to install the npm and composer packages.
+```bash
+composer install
+
+then
+
+npm install
+```
+
+After successfully installing the npm and composer packages, copy the env.example value to the .env.
+
+```bash
+(env values)
+API_KEY=few823mv__570sdd0342
+API_END_POINT=https://www.zeald.com/developer-tests-api/x_endpoint/
+```
+
+Note: Each task has it own branch (task_1, task_2, task_3). While the 'main' branch is pointed to the latest task which is task_3.
+
 This developer test revolves around a basic [Laravel](https://www.laravel.com) app that features two of the best sports of the world ... rugby and basketball! At least - it currently supports rugby, and your job in this test is to extend it to also feature basketball.
 
 It currently pulls player data from a demo rugby API endpoint, and presents a profile card representing that player. Read more about this api, and other endpoints used in this test in the [api docs](./docs/api.md).
