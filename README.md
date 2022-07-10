@@ -19,7 +19,6 @@ npm install
 
 php artisan key:generate : generate key
 
-php artisan serve : run laravel
 ```
 
 After successfully installing the npm and composer packages, copy the env.example value to the .env.
@@ -28,7 +27,23 @@ After successfully installing the npm and composer packages, copy the env.exampl
 (env values)
 API_KEY=few823mv__570sdd0342
 API_END_POINT=https://www.zeald.com/developer-tests-api/x_endpoint/
+
+php artisan serve : run laravel
 ```
+
+To test
+```bash
+
+Rugby Players open the URL
+  localhost:8000/allblacks
+
+NBA Players open the URL
+  localhost:8000/nba
+
+Note: 'localhost:8000' - depends on what address and host your laravel is running
+
+```
+
 
 Note: Each task has it own branch (task_1, task_2, task_3). While the 'main' branch is pointed to the latest task which is task_3.
 
