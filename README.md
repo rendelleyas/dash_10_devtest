@@ -17,7 +17,7 @@ npm install
 After successfully installing the npm and composer packages, copy the env.example value to the .env.
 
 Note: task_1, task_2, task_3 have different env value (API_KEY and API_END_POINT). Because of my work progress per task, there is changes.
-Per task, equals to different branch. While the 'main' branch is pointed to the latest task which is task_3.
+Each task has it own branch (task_1, task_2, task_3). While the 'main' branch is pointed to the latest task which is task_3.
 
 ```bash
 Task 1 (.env values)
