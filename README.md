@@ -6,20 +6,30 @@ git clone https://github.com/rendelleyas/dash_10_devtest.git
 ```
 
 After successfully cloning the entire repo enter this commands to install the npm and composer packages.
+
 ```bash
+cd dash_10_devtest
+
 composer install
 
 then
 
 npm install
+
+.env.examaple -> .env : create an .env config variable based on example
+
+php artisan key:generate : generate key
+
 ```
 
-After successfully installing the npm and composer packages, copy the env.example value to the .env.
+After successfully installing the npm and composer packages, and copying the .env.example to .env, make sure that this env value are added:
 
 ```bash
 (env values)
 API_KEY=few823mv__570sdd0342
-API_END_POINT=https://www.zeald.com/developer-tests-api/x_endpoint/
+API_END_POINT=https://www.zeald.com/developer-tests-api/x_endpoint
+
+php artisan serve : run laravel
 ```
 
 Note: Each task has it own branch (task_1, task_2, task_3). While the 'main' branch is pointed to the latest task which is task_3.
