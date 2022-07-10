@@ -7,11 +7,21 @@ git clone https://github.com/rendelleyas/dash_10_devtest.git
 
 After successfully cloning the entire repo enter this commands to install the npm and composer packages.
 ```bash
+cd dash_10_devtest
+
 composer install
 
 then
 
 npm install
+
+.env.examaple -> .env : create an environment variable based on example
+
+php artisan key:generate : generate key
+
+php artisan serve : run laravel
+
+
 ```
 
 After successfully installing the npm and composer packages, copy the env.example value to the .env.
