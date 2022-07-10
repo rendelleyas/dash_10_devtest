@@ -73,7 +73,7 @@ class PlayerController extends Controller
         // $baseEndpoint = 'https://www.zeald.com/developer-tests-api/x_endpoint/allblacks';
         $baseEndpoint = config('api.endpoint');
 
-        $json = Http::get("$baseEndpoint/id/$id", [
+        $json = Http::get("$baseEndpoint/allblacks/id/$id", [
             'API_KEY' => config('api.key'),
         ])->json();
 
@@ -113,7 +113,7 @@ class PlayerController extends Controller
      */
     public function fetchAllBlack(){
         $baseEndpoint = config('api.endpoint');
-        return Http::get("$baseEndpoint?API_KEY=" . config('api.key'), [
+        return Http::get("$baseEndpoint/allblacks?API_KEY=" . config('api.key'), [
             'API_KEY' => config('api.key'),
         ])->json();
     }
